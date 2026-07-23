@@ -36,3 +36,4 @@ feh --bg-fill ~/dwm/wall/gentoodark.png
 exec dbus-run-session dwm
 
 
+export DISPLAY=foo.bar:1 exec dwm

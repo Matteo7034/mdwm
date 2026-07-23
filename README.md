@@ -7,6 +7,7 @@ Installation
 ------------
 ```
 cp ~/mdwm/scripts/.xinitrc ~/
+cd ~/mdwm
 sudo make clean install
 ```
 
