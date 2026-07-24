@@ -4,7 +4,8 @@ In order to build dwm you need the Xlib header files.
 - feh
 - scrot
 - xorg
-- alacritty
+- st
+- dmenu
 
 Installation
 ------------
