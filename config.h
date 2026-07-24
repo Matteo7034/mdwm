@@ -17,6 +17,7 @@ static const char *colors[][3]      = {
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
 	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
 };
+#include <X11/XF86keysym.h>
 
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
@@ -57,6 +58,9 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
+static const char *brightness_up[]   = { "brightnessctl", "set", "+3%", NULL };
+static const char *brightness_down[] = { "brightnessctl", "set", "3%-", NULL };
+
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "alacritty", NULL };
@@ -64,6 +68,12 @@ static const char *browser[] = { "firefox",NULL};
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
+    { 0, XF86XK_MonBrightnessUp,   spawn, { .v = brightness_up } },
+    { 0, XF86XK_MonBrightnessDown, spawn, { .v = brightness_down } },
+    { 0, XF86XK_AudioRaiseVolume,   spawn, SHCMD("pactl set-sink-volume @DEFAULT_SINK@ +5%") },
+    { 0, XF86XK_AudioLowerVolume,   spawn, SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -5%") },
+    { 0, XF86XK_AudioMute,          spawn, SHCMD("pactl set-sink-mute @DEFAULT_SINK@ toggle") },
+
 	{ MODKEY,			XK_Home,   spawn,	   SHCMD("~/dwm/scripts/scrot.sh") },
 	{ MODKEY|ShiftMask,		XK_b,	   spawn,	   {.v = browser } },
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
