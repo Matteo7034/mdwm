@@ -74,7 +74,7 @@ static const Key keys[] = {
     { 0, XF86XK_AudioLowerVolume,   spawn, SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -5%") },
     { 0, XF86XK_AudioMute,          spawn, SHCMD("pactl set-sink-mute @DEFAULT_SINK@ toggle") },
 
-	{ MODKEY,			XK_Home,   spawn,	   SHCMD("~/dwm/scripts/scrot.sh") },
+	{ MODKEY,			XK_Insert,   spawn,	   SHCMD("~/mdwm/scripts/scrot.sh") },
 	{ MODKEY|ShiftMask,		XK_b,	   spawn,	   {.v = browser } },
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
