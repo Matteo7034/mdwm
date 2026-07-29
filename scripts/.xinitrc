@@ -2,38 +2,39 @@ export __GL_MaxFramesAllowed=1
 export __GL_YIELD="USLEEP"
 export __GL_THREADED_OPTIMIZATIONS=1
 
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS=@im=fcitx
+export XIM=fcitx
+
+
 export XDG_SESSION_TYPE=x11
 export DESKTOP_SESSION=dwm
 
-#resolution
-xrandr --output DP-2 --mode 2560x1440 --rate 180
+
+xrandr --output eDP-1 --mode 1600x900
+#xrandr --output eDP-1 --mode 1920x1080 --output HDMI-1 --mode 1920x1080 --same-as eDP-1
 
 #compositor
-picom --daemon
+pkill -f picom
+picom --daemon &
+
+pkill -f pulseaudio
+pulseaudio > /dev/null 2>&1 &
 
 #night light
-redshift -O 3600
+redshift -O 3600 &
+
 
 if [ -x /usr/bin/dbus-update-activation-environment ]; then
-    dbus-update-activation-environment --systemd --all
+    dbus-update-activation-environment --all GTK_IM_MODULE QT_IM_MODULE XMODIFIERS
 fi
 
-#Audio
-pkill -f pipewire
-pkill -f pipewire-pulse
-pkill -f wireplumber
-
-pipewire  > /dev/null 2>&1 &
-
-pipewire-pulse  > /dev/null 2>&1 &
- 
-wireplumber  > /dev/null 2>&1 &
-
 # sfondo
-feh --bg-fill ~/dwm/wall/gentoodark.png
+feh --bg-fill ~/mdwm/wall/optimusknight.jpg
 
 # Esegui la sessione D-Bus con dwm
 exec dbus-run-session dwm
 
 
-export DISPLAY=foo.bar:1 exec dwm
+#export DISPLAY=foo.bar:1 exec dwm
