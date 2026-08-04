@@ -8,8 +8,10 @@ In order to build dwm you need the Xlib header files.
 - feh
 - scrot
 - xorg
-- st
+- alacritty
 - dmenu
+- picom
+- pulseaudio
 
 Installation
 ------------
