@@ -1,6 +1,7 @@
 ## Preview
 ![Screen](assets/screen2.png)
 
+
 Requirements
 ------------
 In order to build dwm you need the Xlib header files.
