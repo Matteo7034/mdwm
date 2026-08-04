@@ -31,8 +31,8 @@ if [ -x /usr/bin/dbus-update-activation-environment ]; then
 fi
 
 # sfondo
-feh --bg-fill ~/mdwm/wall/optimusknight.jpg
-
+feh --bg-fill ~/mdwm/wall/mountain.png
+birghtnessctl set 30 &
 # Esegui la sessione D-Bus con dwm
 exec dbus-run-session dwm
 
