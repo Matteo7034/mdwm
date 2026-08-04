@@ -30,11 +30,11 @@ if [ -x /usr/bin/dbus-update-activation-environment ]; then
     dbus-update-activation-environment --all GTK_IM_MODULE QT_IM_MODULE XMODIFIERS
 fi
 
+(sleep 2 && birghtnessctl set 10% ) &
 # sfondo
-feh --bg-fill ~/mdwm/wall/mountain.png
-birghtnessctl set 30 &
+feh --bg-fill ~/mdwm/wall/cherrycloud.jpg &
+~/mdwm/scripts/xsetroot.sh &
 # Esegui la sessione D-Bus con dwm
 exec dbus-run-session dwm
-
 
 #export DISPLAY=foo.bar:1 exec dwm
