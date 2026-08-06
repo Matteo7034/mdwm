@@ -10,6 +10,6 @@ while true; do
     fi
 
 
-    xsetroot -name " $(date +%H:%M) | $(date +%a) | $(date +%d/%m/%y) | 🔋 $BAT% ($WATTS) "
+    xsetroot -name " Linux:($(uname -r | cut -d"-" -f1)) | $(date +%H:%M) | $(date +%a) | $(date +%d/%m/%y) | 🔋 $BAT% ($WATTS) "
 	sleep 60
 done
