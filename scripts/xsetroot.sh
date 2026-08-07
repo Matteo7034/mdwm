@@ -8,8 +8,27 @@ while true; do
     else
         WATTS="N/A"
     fi
+    DBM=$(wpa_cli scan_results | grep "-" | awk '{print $3}')
+    if [ -n "$DBM" ]; then
+        quality=$(( (DBM + 100) *2))
+        [ $quality -gt 100 ] && quality=100
+        [ $quality -lt 0 ] && quality=0
 
+        if [ "$quality" -gt 75 ]; then
+            WIFI_ICON="󰤨"
+        elif [ "$quality" -gt 50 ]; then
+            WIFI_ICON="󰤥"
+        elif [ "$quality" -gt 25 ]; then
+            WIFI_ICON="󰤢"
+        else WIFI_ICON="󰤟"
+        fi
+        WIFI="$WIFI_ICON  $(wpa_cli status | grep  -E '^ssid' | cut -d"=" -f2)"
+    else
+        WIFI="󰤯 Disconnected"
+    fi
 
-    xsetroot -name " Linux:($(uname -r | cut -d"-" -f1)) | $(date +%H:%M) | $(date +%a) | $(date +%d/%m/%y) | 🔋 $BAT% ($WATTS) "
+    LINUX="Linux:($(uname -r | cut -d"-" -f1))"
+    DATE="$(date +%H:%M) | $(date +%a) | $(date +%d/%m/%y)"
+    xsetroot -name " $LINUX | $WIFI | $DATE |🔋$BAT%($WATTS) "
 	sleep 60
 done
