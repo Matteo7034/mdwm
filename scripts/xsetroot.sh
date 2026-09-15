@@ -30,11 +30,13 @@ while true; do
         WIFI="󰤯 Disconnected"
     fi
     GPU="GPU: $(nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits)C"
+    CPU="CPU: $(( $(cat /sys/class/thermal/thermal_zone1/temp) / 1000))C"
+    
     # Sistema e Data
     LINUX="Linux:($(uname -r | cut -d"-" -f1))"
     DATE="$(date +%H:%M) | $(date +%a) | $(date +%d/%m/%y)"
     MEM="$(free  -h | awk '/^Mem:/ {print $3}')"
     # Output su xsetroot
-    xsetroot -name " $LINUX | $WIFI | $MEM | $GPU |$DATE |🔋$BAT%($WATTS) "
+    xsetroot -name " $LINUX | $WIFI | $MEM | $GPU | $CPU |$DATE |🔋$BAT%($WATTS) "
     sleep 20
 done
