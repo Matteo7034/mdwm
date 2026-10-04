@@ -5,18 +5,23 @@ static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "JetBrainsMono Nerd Font:size=10" };
-static const char dmenufont[]       = "JetBrainsMono Nerd Font:size=10";
-static const char col_gray1[]       = "#1a1b26";
-static const char col_gray2[]       = "#24283b";
-static const char col_gray3[]       = "#c0caf5";
-static const char col_gray4[]       = "#15161e";
-static const char col_cyan[]        = "#73daca";
+static const char *fonts[]          = { "Terminus:size=10" };
+static const char dmenufont[]       = "Terminus:size=10";
+
+/* Tokyo Night Colors */
+static const char col_bg[]          = "#1a1b26"; /* Sfondo principale bar / finestre inattive */
+static const char col_dark_bg[]     = "#16161e"; /* Sfondo scuro per contrasto */
+static const char col_border_norm[] = "#24283b"; /* Bordo finestre non focalizzate */
+static const char col_fg_norm[]     = "#c0caf5"; /* Testo/tag inattivi */
+static const char col_accent[]      = "#7aa2f7"; /* Colore principale attivo (Blu/Azzurro) */
+static const char col_fg_sel[]      = "#15161e"; /* Testo sul tag selezionato */
+
 static const char *colors[][3]      = {
-	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+        /*               fg           bg           border   */
+        [SchemeNorm] = { col_fg_norm, col_bg,      col_border_norm },
+        [SchemeSel]  = { col_fg_sel,  col_accent,  col_accent      },
 };
+
 #include <X11/XF86keysym.h>
 
 /* tagging */
@@ -62,9 +67,19 @@ static const char *brightness_up[]   = { "brightnessctl", "set", "+3%", NULL };
 static const char *brightness_down[] = { "brightnessctl", "set", "3%-", NULL };
 
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-static const char *termcmd[]  = { "alacritty", NULL };
-static const char *browser[] = { "firefox-bin",NULL};
+static const char *dmenucmd[] = { 
+    "dmenu_run", 
+    "-m", dmenumon, 
+    "-fn", dmenufont, 
+    "-nb", col_bg,          /* Sfondo normale (Norm BG) */
+    "-nf", col_fg_norm,     /* Testo normale (Norm FG) */
+    "-sb", col_accent,      /* Sfondo selezione (Sel BG) */
+    "-sf", col_fg_sel,      /* Testo selezione (Sel FG) */
+    NULL 
+};
+
+static const char *termcmd[]  = { "st", NULL };
+static const char *browser[] = { "librewolf",NULL};
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -74,7 +89,7 @@ static const Key keys[] = {
     { 0, XF86XK_AudioLowerVolume,   spawn, SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -5%") },
     { 0, XF86XK_AudioMute,          spawn, SHCMD("pactl set-sink-mute @DEFAULT_SINK@ toggle") },
 
-	{ MODKEY,			XK_Insert,   spawn,	   SHCMD("~/mdwm/scripts/scrot.sh") },
+	{ MODKEY,			XK_Print,   spawn,	   SHCMD("~/mdwm/scripts/scrot.sh") },
 	{ MODKEY|ShiftMask,		XK_b,	   spawn,	   {.v = browser } },
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
